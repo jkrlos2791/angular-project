@@ -1,0 +1,15 @@
+<h1>{{user.first_name}} {{user.last_name}} <small>({{user.activacion | date:'y'}})</small></h1>
+<hr>
+<div class="row animated fadeIn fast">
+	<div class="col-md-4">
+		<a [routerLink]="['/users']" class="btn btn-outline-danger btn-block">Regresar</a>
+	</div>
+	<div class="col-md-8">
+		<h3>{{user.email}}</h3>
+		<hr>
+		<p>{{user.username | uppercase}}</p>
+		<div>
+		<img *ngIf="user.username=='Root'" src="assets/imgs/technical-support-icon.png" alt="root">
+		</div>
+	</div>
+</div>

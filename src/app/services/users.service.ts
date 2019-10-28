@@ -13,6 +13,17 @@ export class UsersService{
 	constructor(private http: HttpClient){
 	}
 	
+	handleError(error) {
+		let errorMessage = '';
+		if(error.error instanceof ErrorEvent) {
+			errorMessage = error.error.message;
+		} else {
+			errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+		}
+		window.alert(errorMessage);
+		return throwError(errorMessage);
+	}
+
 	getUsers(): Observable<User> {
 		return this.http.get<User>(this.apiURL + '/getUsers')
 		.pipe(
@@ -20,6 +31,14 @@ export class UsersService{
 			catchError(this.handleError)
 		)
 	}
+	
+	getUser(username): Observable<User> {
+		return this.http.get<User>(this.apiURL + '/getUser/' + username)
+		.pipe(
+			retry(1),
+			catchError(this.handleError)
+		)
+	} 
 
 }
 
